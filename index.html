@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Big/Small Predictor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background: #1e1e1e;
+      color: #f0f0f0;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+    #result {
+      font-size: 24px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Big/Small Predictor</h1>
+  <p>Enter last results (e.g., Small, Small, Big):</p>
+  <input type="text" id="historyInput" placeholder="e.g., Small, Small, Big" size="40">
+  <br>
+  <button onclick="predict()">Predict Next</button>
+  <div id="result"></div>
+
+  <script>
+    function predict() {
+      const input = document.getElementById("historyInput").value.trim();
+      const history = input.split(',').map(i => i.trim().toLowerCase());
+
+      const smalls = history.filter(x => x === "small").length;
+      const bigs = history.filter(x => x === "big").length;
+
+      let prediction = "Small";
+      if (history.slice(-3).every(x => x === "small")) {
+        prediction = "Big";
+      } else if (smalls > bigs) {
+        prediction = "Big";
+      }
+
+      document.getElementById("result").innerHTML = Predicted: <span style="color: yellow">${prediction.toUpperCase()}</span>;
+    }
+  </script>
+</body>
+</html>
