@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Big/Small Predictor</title>
   <style>
     body {
@@ -24,7 +26,7 @@
 </head>
 <body>
   <h1>Big/Small Predictor</h1>
-  <p>Enter last results (e.g., Small, Small, Big):</p>
+  <p>Enter the last results (e.g., Small, Small, Big):</p>
   <input type="text" id="historyInput" placeholder="e.g., Small, Small, Big" size="40">
   <br>
   <button onclick="predict()">Predict Next</button>
@@ -32,10 +34,11 @@
 
   <script>
     function predict() {
+      // Get input value and split it into an array
       const input = document.getElementById("historyInput").value.trim();
       const history = input.split(',').map(i => i.trim().toLowerCase());
 
-      // Ensure the user entered at least 3 results
+      // Validate input: at least 3 results should be entered
       if (history.length < 3) {
         document.getElementById("result").innerHTML = "Please enter at least 3 results!";
         return;
@@ -45,15 +48,16 @@
       const smalls = history.filter(x => x === "small").length;
       const bigs = history.filter(x => x === "big").length;
 
-      let prediction = "Small"; // Default prediction
+      let prediction = "Small";  // Default prediction
 
-      // If the last 3 results were all "small", predict "big"
+      // Check for 3 consecutive "small" results
       if (history.slice(-3).every(x => x === "small")) {
         prediction = "Big";
       } else if (smalls > bigs) {
         prediction = "Big";
       }
 
+      // Display the prediction
       document.getElementById("result").innerHTML = Predicted: <span style="color: yellow">${prediction.toUpperCase()}</span>;
     }
   </script>
