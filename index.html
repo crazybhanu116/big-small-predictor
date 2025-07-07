@@ -34,7 +34,6 @@
 
   <script>
     function predict() {
-      // Get input value and split it into an array
       const input = document.getElementById("historyInput").value.trim();
       const history = input.split(',').map(i => i.trim().toLowerCase());
 
@@ -60,6 +59,4 @@
       // Display the prediction
       document.getElementById("result").innerHTML = Predicted: <span style="color: yellow">${prediction.toUpperCase()}</span>;
     }
-  </script>
-</body>
-</html>
+</script>
