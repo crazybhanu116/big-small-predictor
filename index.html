@@ -35,10 +35,19 @@
       const input = document.getElementById("historyInput").value.trim();
       const history = input.split(',').map(i => i.trim().toLowerCase());
 
+      // Ensure the user entered at least 3 results
+      if (history.length < 3) {
+        document.getElementById("result").innerHTML = "Please enter at least 3 results!";
+        return;
+      }
+
+      // Count occurrences of "small" and "big"
       const smalls = history.filter(x => x === "small").length;
       const bigs = history.filter(x => x === "big").length;
 
-      let prediction = "Small";
+      let prediction = "Small"; // Default prediction
+
+      // If the last 3 results were all "small", predict "big"
       if (history.slice(-3).every(x => x === "small")) {
         prediction = "Big";
       } else if (smalls > bigs) {
